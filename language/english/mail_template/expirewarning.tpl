@@ -1,8 +1,8 @@
-Olá {X_UNAME},
+Dear {X_UNAME},
 
-Nós estamos informando que a sua assinatura de ordem está quase expirando.
+We like to inform you that your subscription order is almost expiring. 
 
-Você pode renovar sua inscrição, acesse a sua página de gestão de assinaturas e siga as instruções para renovar.
+You can renew your subscription by logging into your subscription management page and follow the instructions to renew.
 
 {SITEURL}/modules/{$moddir}/subscriptions.php?op=edit&orderid={$orderid}
 

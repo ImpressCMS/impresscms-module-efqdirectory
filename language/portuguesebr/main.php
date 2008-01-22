@@ -29,11 +29,11 @@
 //	Based upon the mylinks and the mxDirectory modules						 //
 // ------------------------------------------------------------------------- //
 //Submit form
-define("_MD_SELECT","Select yes/no");
-define("_MD_CATEGORIES","Categories");
-define("_MD_ERROR_NOT_SAVED","The record was not saved. Please contact the site administrator.");
+define("_MD_SELECT","Escolha sim/não"); //GibaPhp
+define("_MD_CATEGORIES","Categorias"); //GibaPhp
+define("_MD_ERROR_NOT_SAVED","O registro não foi salvo. Entre em contato com o administrador do site."); //GibaPhp
 
-define("_MD_THANKSFORINFO","Thanks for the information. We'll look into your request shortly.");
+define("_MD_THANKSFORINFO","Obrigado pela informação. Iremos averiguar o seu pedido em breve."); //GibaPhp
 define("_MD_THANKSFORHELP","Thank you for helping to maintain this directory's integrity.");
 define("_MD_FORSECURITY","For security reasons your user name and IP address will also be temporarily recorded.");
 
