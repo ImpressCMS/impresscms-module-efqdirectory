@@ -29,9 +29,9 @@
 //	Purpose: Create a business directory for xoops.		 	 				 //
 //	Based upon the mylinks and the mxDirectory modules						 //
 // ------------------------------------------------------------------------- //
-define("_MB_EFQDIR_MENU","Directories");
-define("_MB_EFQDIR_DISP","Display");
-define("_MB_EFQDIR_LISTINGS","Listings");
-define("_MB_EFQDIR_CHARS","Characters");
-define("_MB_EFQDIR_LENGTH","Lenght");
+define("_MB_EFQDIR_MENU","Diretórios");
+define("_MB_EFQDIR_DISP","Mostrar");
+define("_MB_EFQDIR_LISTINGS","Listagem");
+define("_MB_EFQDIR_CHARS","Caracteres");
+define("_MB_EFQDIR_LENGTH","Comprimento");
 ?>

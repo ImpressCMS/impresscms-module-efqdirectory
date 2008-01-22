@@ -3,10 +3,10 @@
 // Module Info for Listings module
 
 // The name of this module
-define("_MI_EFQDIR_NAME","Listings directory");
+define("_MI_EFQDIR_NAME","Listagem de diretório"); //GibaPhp
 
 // A brief description of this module
-define("_MI_EFQDIR_DESC","Creates a listings section where directories of listings can be managed.");
+define("_MI_EFQDIR_DESC","Cria uma seção onde as listagens de diretórios poderão ser geridas.");
 
 // Names of blocks for this module (Not every module has blocks)
 define("_MI_EFQDIR_BNAME1","Recent Listings");
