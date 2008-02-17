@@ -202,7 +202,7 @@ class efqDataFieldManager extends XoopsFormElement {
 			$form->addElement($form_textarea_tray);
 			break;
 		default:
-			echo $fieldtype." geen bekend veldtype ";
+			echo $fieldtype." is an unknown field type.";
 			break;
 		}
 	}

@@ -66,6 +66,7 @@ if (!empty($_GET['item'])) {
 
 $moddir = $xoopsModule->getvar("dirname");
 $dirid = getDirIdFromItem($get_itemid);
+$islistingowner = false;
 
 $xoopsTpl->assign('xoops_module_header', $xoops_module_header);
 if ($isadmin) {
@@ -78,7 +79,7 @@ $xoopsTpl->assign('adminlink', $adminlink);
 $coupon = new efqCouponHandler();
 $listing = new efqListing();
 $listinghandler = new efqListingHandler();
-$listinghandler->incrementHits($get_itemid);
+
 $listing->setVars($listinghandler->getListing($get_itemid));
 
 $pathstring = "<a href='index.php?dirid=".$dirid."'>"._MD_MAIN."</a>&nbsp;:&nbsp;";
@@ -88,6 +89,7 @@ $editlink = "<a href=\"edit.php?item=".$get_itemid."\"><img src=\"".XOOPS_URL."/
 
 if (isset($xoopsUser) && $xoopsUser != null) {
 	if ($xoopsUser->getVar('uid') == $listing->getVar('uid')) {
+		$islistingowner = true;
 		$xoopsTpl->assign('listingowner', '1');
 		if ( $listing->getVar('status') == '2' and $xoopsModuleConfig['autoapprove'] == 1 ) {
 			$editrights = '1';
@@ -97,6 +99,9 @@ if (isset($xoopsUser) && $xoopsUser != null) {
 	} else {
 		$editrights = '0';
 	}
+}
+if (!$islistingowner and !$isadmin) {
+	$listinghandler->incrementHits($get_itemid);
 }
 
 $type = getTypeFromId($listing->getVar('typeid'));
