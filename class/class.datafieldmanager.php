@@ -53,6 +53,7 @@ class efqDataFieldManager extends XoopsFormElement {
 		if ($customtitle == NULL) {
 			$customtitle = "";
 		}
+		$multiple = false;
 		if ($ext != "") {
 			$ext_arr = split("[|]",$ext);
 			foreach($ext_arr as $ext_item) {
@@ -73,6 +74,9 @@ class efqDataFieldManager extends XoopsFormElement {
 				case "maxsize":
 					$maxsize = $ext_item_value;
 					break;
+				case "multiple":
+					$multiple = true;
+					$size = 5;
 				case "value":
 					if ($ext_item_value != '' and $value == '' ) {
 						$value = $ext_item_value;
@@ -130,9 +134,11 @@ class efqDataFieldManager extends XoopsFormElement {
 			break;
 		case "select":
 			$options_arr = split("[|]",$options);
-			$form_select = new XoopsFormSelect($title, $name, $value, 1);
-			$form_select->addOption('0', '----');
-			foreach($options_arr as $option) {
+			$value_arr = split("[|]",$value);
+			$form_select = new XoopsFormSelect($title, $name, $value, $size, $multiple);
+			$form_select->addOption('-', '----');
+			$form_select->setValue($value_arr);
+			foreach($options_arr as $key => $option) {
 				$form_select->addOption($option, $option);
 			}
 			$form->addElement($form_select);
@@ -178,7 +184,23 @@ class efqDataFieldManager extends XoopsFormElement {
 			break;
 		case "date":
 			$form->addElement(new XoopsFormText($title, $name, 10, 10, $value));
-			break;						
+			break;
+		case "url":
+			if ($value != '') {
+				$link = explode('|',$value);
+			} else {
+				$link = array();
+				$link[0] = '';
+				$link[1] = '';
+			}
+			$form_textarea_tray = new XoopsFormElementTray($title, "", $name);
+			$form_textarea_tray->addElement(new XoopsFormLabel("", "<table><tr><td>"));
+			$form_textarea_tray->addElement(new XoopsFormText("<b>"._MD_FIELDNAMES_URL_TITLE."</b></td><td>", "url_title".$name, 50, 250, $link[1]));
+			$form_textarea_tray->addElement(new XoopsFormLabel("", "</td></tr><tr><td>"));
+			$form_textarea_tray->addElement(new XoopsFormText("<b>"._MD_FIELDNAMES_URL_LINK."</b></td><td>", "url_link".$name, 50, 250, $link[0]));
+			$form_textarea_tray->addElement(new XoopsFormLabel("", "</td></tr></table>"));
+			$form->addElement($form_textarea_tray);
+			break;
 		default:
 			echo $fieldtype." geen bekend veldtype ";
 			break;
@@ -306,6 +328,10 @@ class efqDataFieldManager extends XoopsFormElement {
 				</form>';
 			}
 			return $address;
+		case "url":
+			$link = explode('|',$value);
+			return '<a href="'.$myts->makeTboxData4Show($link[0]).'" title="'.$myts->makeTboxData4Show($link[1]).'">'.$myts->makeTboxData4Show($link[0]).'</a>';
+			break;
 		default:
 			return $myts->makeTboxData4Show($value);
 			break;
@@ -357,7 +383,9 @@ class efqDataFieldManager extends XoopsFormElement {
 			break;
 		case "date":
 			$this->createSearchField_text($title, $name, $value, $options);
-			break;	
+			break;
+		case "url":
+			$this->createSearchField_text($title, $name, $value, $options);
 		default:
 			echo $fieldtype." geen bekend veldtype ";
 			break;

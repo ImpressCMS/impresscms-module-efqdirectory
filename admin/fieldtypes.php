@@ -66,6 +66,7 @@ $fieldtypes = array('0' => '---',
 					//'address' => _MD_FIELDNAMES_ADDRESS, //EDIT-RC10
 					//'locationmap' => _MD_FIELDNAMES_LOCATIONMAP,
 					'rating' => _MD_FIELDNAMES_RATING,
+					'url' => _MD_FIELDNAMES_URL
 					//'gallery' => _MD_FIELDNAMES_GALLERY
 					);
 

@@ -112,8 +112,8 @@ class efqCouponHandler {
         return false;
 	}
 	
-	function delete() {
-		$sql = "DELETE FROM ".$this->db->prefix("efqdiralpha1_coupon")." WHERE couponid=$couponid"; 
+	function delete($couponid) {
+		$sql = "DELETE FROM ".$this->db->prefix("efqdiralpha1_coupon")." WHERE couponid=".intval($couponid); 
         $this->db->query($sql);
         return true;
 	}

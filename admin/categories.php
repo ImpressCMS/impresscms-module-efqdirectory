@@ -446,7 +446,7 @@ function saveDatatype()
 		$p_fieldtype = $_POST["typeid"];
 		$p_seq = $myts->makeTboxData4Save($_POST["seq"]);
 		
-		include_once XOOPS_ROOT_PATH.'/class/uploader.php';
+		include_once XOOPS_ROOT_PATH.'/class/class.uploader.php';
 		$uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH."/modules/$moddir/init_uploads", array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png', 'image/jpg'), 30000, 50, 50);
 		$uploader->setPrefix('icon');
 		$err = array();
@@ -525,7 +525,7 @@ function addDatatype()
 	$p_section = $myts->makeTboxData4Save($_POST["section"]);
 	$uid = $xoopsUser->getVar('uid');
 	
-	include_once XOOPS_ROOT_PATH.'/class/uploader.php';
+	include_once XOOPS_ROOT_PATH.'/class/class.uploader.php';
 	//$uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH.'/modules/'.$moddir.'/init_uploads', array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png', 'image/jpg'), 30000, 50, 50);
 	$uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH."/modules/$moddir/init_uploads", array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png', 'image/jpg'), 30000, 50, 50);
 	$uploader->setPrefix('icon');
@@ -648,7 +648,7 @@ function updateCat()
 		$p_descr = false;
 	}
 	if ( $_POST['xoops_upload_file'][0] != "" ) {
-		include_once XOOPS_ROOT_PATH."/modules/$moddir/class/uploader.php";
+		include_once XOOPS_ROOT_PATH."/modules/$moddir/class/class.uploader.php";
 		$uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH."/modules/$moddir/init_uploads", array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png', 'image/jpg'), 30000, 250, 250);
 		if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
 			$filename = $uploader->getMediaName();
@@ -756,7 +756,7 @@ function newCat()
 	}
 	
 	if ( $_POST['xoops_upload_file'][0] != "" ) {
-		include_once XOOPS_ROOT_PATH."/modules/$moddir/class/uploader.php";
+		include_once XOOPS_ROOT_PATH."/modules/$moddir/class/class.uploader.php";
 		$uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH."/modules/$moddir/init_uploads", array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png', 'image/jpg'), 30000, 250, 250);
 		if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
 			$filename = $uploader->getMediaName();

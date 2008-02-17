@@ -135,7 +135,7 @@ if (!empty($_POST['submit'])) {
         }
         $coupon = new efqCouponHandler();
         $couponid = intval($_POST['couponid']);
-        if ($coupon_handler->delete($couponid)) {
+        if ($coupon->delete($couponid)) {
             redirect_header("listing.php?item=".$itemid,2,_MD_COUPONDELETED);
             exit();
         }

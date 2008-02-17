@@ -165,7 +165,7 @@ function updateDir()
 		$p_descr = "";
 	}
 	if ( $_POST['xoops_upload_file'][0] != "" ) {
-		include_once XOOPS_ROOT_PATH.'/class/uploader.php';
+		include_once XOOPS_ROOT_PATH.'/class/class.uploader.php';
 		$uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH.'/modules/'.$moddir.'/init_uploads', array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png', 'image/jpg'), 30000, 80, 80);
 		if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
 			$filename = $uploader->getMediaName();

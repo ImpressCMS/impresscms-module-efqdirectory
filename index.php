@@ -37,6 +37,7 @@ include_once XOOPS_ROOT_PATH.'/class/module.errorhandler.php';
 include_once XOOPS_ROOT_PATH.'/class/xoopsformloader.php';
 include_once "class/class.datafieldmanager.php";
 include_once "class/class.couponhandler.php";
+include_once "class/class.efqtree.php";
 
 $datafieldmanager = new efqDataFieldManager();
 $moddir = $xoopsModule->getvar("dirname");
@@ -44,6 +45,7 @@ $moddir = $xoopsModule->getvar("dirname");
 $eh = new ErrorHandler;
 
 $mytree = new XoopsTree($xoopsDB->prefix("efqdiralpha1_cat"),"cid","pid");
+$efqtree = new efqTree($xoopsDB->prefix("efqdiralpha1_cat"),"cid","pid");
 
 //Check if any option in URL
 if (!empty($_GET['op'])) {
@@ -128,7 +130,7 @@ if ($get_dirid != 0 || $get_catid != 0) {
 	$searchform .= "<input type=\"hidden\" name=\"dirid\" value=\"".$dirid."\" /><input type=\"text\" name=\"q\" size=\"40\" maxsize=\"150\" value=\"\" /><input type=\"submit\" class=\"formButton\" name=\"submit\" value=\""._MD_SEARCH."\">".$lang_adv_search."</form>";
 	$xoopsTpl->assign('searchform', $searchform);
 	$pathstring = "<a href='index.php?dirid=".$dirid."'>"._MD_MAIN."</a>&nbsp;:&nbsp;";
-	$pathstring .= $mytree->getNicePathFromId($get_catid, "title", "index.php?dirid=".$dirid."&op=");
+	$pathstring .= $efqtree->getNicePathFromId($get_catid, "title", "index.php?dirid=".$dirid."&op=");
 	$xoopsTpl->assign('category_path', $pathstring);
 	
 	if (isset($xoopsUser) && $xoopsUser != null ) {
@@ -153,7 +155,7 @@ if ($get_dirid != 0 || $get_catid != 0) {
 				$img = XOOPS_URL."/modules/$moddir/uploads/".$myts->makeTboxData4Show($myrow['img']);
 			}
 			$arr = array();
-			$arr = $mytree->getFirstChild($myrow['cid'], "title");
+			$arr = $efqtree->getFirstChild($myrow['cid'], "title");
 			$space = 0;
 			$chcount = 0;
 			$subcategories = '';
@@ -250,7 +252,7 @@ if ($get_dirid != 0 || $get_catid != 0) {
 				
 				$coupon_handler = new efqCouponHandler();
 				$coupons = $coupon_handler->getCountByLink($itemid);
-				$path = $mytree->getPathFromId($get_catid, "title");
+				$path = $efqtree->getPathFromId($get_catid, "title");
 				$path = substr($path, 1);
 				$path = str_replace("/"," <img src='".XOOPS_URL."/modules/".$moddir."/images/arrow.gif' board='0' alt=''> ",$path);
 				$new = newlinkgraphic($created, $status);
@@ -369,7 +371,7 @@ if ($get_dirid != 0 || $get_catid != 0) {
 					}
 					
 					
-					$path = $mytree->getPathFromId($get_catid, "title");
+					$path = $efqtree->getPathFromId($get_catid, "title");
 					$path = substr($path, 1);
 					$path = str_replace("/"," <img src='".XOOPS_URL."/modules/".$moddir."/images/arrow.gif' board='0' alt=''> ",$path);
 					$new = newlinkgraphic($created, $status);

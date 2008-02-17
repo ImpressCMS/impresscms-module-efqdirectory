@@ -283,6 +283,8 @@ define("_MD_FIELDNAMES_DHTMLTEXTAREA","DHTML text area");
 define("_MD_FIELDNAMES_TEXTBOX","Text box");
 define("_MD_FIELDNAMES_TIMEZONE","Time zone");
 define("_MD_FIELDNAMES_YESNO","Yes/No");
+define("_MD_FIELDNAMES_URL_TITLE","Link title");
+define("_MD_FIELDNAMES_URL_LINK","Link address");
 
 define("_MD_FIELDNAMES_ADDRESS","Address");
 define("_MD_FIELDNAMES_GALLERY","Image gallery");

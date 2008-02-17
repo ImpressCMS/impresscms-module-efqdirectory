@@ -47,7 +47,8 @@ $moddir = $xoopsModule->getvar("dirname");
 // Prepare two tree classes;
 $mytree = new XoopsTree($xoopsDB->prefix("efqdiralpha1_cat"),"cid","pid");
 $efqtree = new efqTree($xoopsDB->prefix("efqdiralpha1_cat"),"cid","pid");
-$efqlisting = new efqListing();
+$efqListing = new efqListing();
+$efqListingHandler = new efqListingHandler();
 
 $eh = new ErrorHandler; //ErrorHandler object
 $datafieldmanager = new efqDataFieldManager();
@@ -85,7 +86,7 @@ if (!empty($_POST['submit'])) {
 	}
 	// If option is "submitforapproval" then submit and redirect;
 	if ($op == 'submitforapproval') {
-		if ( $efqlistingHandler->updateStatus($post_itemid, '1') ) {
+		if ( $efqListingHandler->updateStatus($post_itemid, '1') ) {
 			redirect_header("index.php",2,_MD_SUBMITTED_PUBLICATION);
 		} else {
 			redirect_header("index.php",2,_MD_ERROR_NOT_SAVED);	
@@ -162,8 +163,8 @@ if (!empty($_POST['submit'])) {
 		}
 	}
 	
-	$efqlistingHandler = new efqListingHandler();
-	$linkedcats = $efqlistinghandler->getLinkedCatsArray($post_itemid, $post_dirid);
+	
+	$linkedcats = $efqListingHandler->getLinkedCatsArray($post_itemid, $post_dirid);
 
 	$allcatsresult = $xoopsDB->query("SELECT cid FROM ".$xoopsDB->prefix("efqdiralpha1_cat")." WHERE dirid='".$post_dirid."' AND active='1'");	
 	$numrows = $xoopsDB->getRowsNum($allcatsresult);
@@ -203,7 +204,26 @@ if (!empty($_POST['submit'])) {
 	while(list($dtypeid, $title, $section, $ftypeid, $fieldtype, $ext, $options, $itemid, $value, $custom) = $xoopsDB->fetchRow($data_result))
     {
 		if (isset($_POST["$dtypeid"])) {
-			$post_value = $myts->makeTboxData4Save($_POST["$dtypeid"]);
+			if (is_array($_POST["$dtypeid"])) {
+				$post_value_array = $_POST["$dtypeid"];
+				$post_value = "";
+				$options_arr = split("[|]",$options);
+				$options_arr[] = '-';
+				$count_post_value_array = count($post_value_array);
+				for ($i=0; $i<$count_post_value_array; $i++) {
+					// Check if posted value is in options.
+					if (in_array($post_value_array[$i], $options_arr)) {
+						if ($i==0) {
+							$post_value = $post_value_array[$i];
+						} else {
+							$post_value .= "|".$post_value_array[$i];	
+						}
+					}
+				}
+			} else {
+				$post_value = $myts->makeTboxData4Save($_POST["$dtypeid"]);	
+			}
+			
 		} else {
 			$post_value = "";
 		}
@@ -211,6 +231,19 @@ if (!empty($_POST['submit'])) {
 			$post_customtitle = $myts->makeTboxData4Save($_POST["custom".$dtypeid.""]);
 		} else {
 			$post_customtitle = "";
+		}
+		if (isset($_POST["url_title".$dtypeid.""])) {
+			$post_urltitle = $myts->makeTboxData4Save($_POST["url_title".$dtypeid.""]);
+		} else {
+			$post_urltitle = "";
+		}
+		if (isset($_POST["url_link".$dtypeid.""])) {
+			$post_urllink = $myts->makeTboxData4Save($_POST["url_link".$dtypeid.""]);
+		} else {
+			$post_urllink = "";
+		}
+		if ($post_urllink != "") {
+			$post_value = $post_urllink.'|'.$post_urltitle;
 		}
 		if ($itemid == NULL) {
 			//That means there was not any value, so a new record should be added to the data table.
